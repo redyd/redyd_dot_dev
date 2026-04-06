@@ -20,6 +20,10 @@ export const localServices: LocalService[] = [
     {
         label: "Ticketa - Admin",
         port: 8090
+    },
+    {
+        label: "Portainer",
+        port: 9000
     }
 ];
 
