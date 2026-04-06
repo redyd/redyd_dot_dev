@@ -22,7 +22,7 @@ export default function AdminPage() {
     }
 
     return (
-        <div>
+        <>
             <section>
                 <SectionHeader
                     label="local services"
@@ -66,6 +66,6 @@ export default function AdminPage() {
                     })}
                 </div>
             </section>
-        </div>
+        </>
     );
 }
