@@ -1,7 +1,7 @@
 import {settings} from "@/data/services.data";
 import {ThemeToggle} from "@/components/actionnables/ThemeToggle";
 
-export default function Header() {
+export default function AdminHeader() {
     const {ip, base_url} = settings;
 
     return (

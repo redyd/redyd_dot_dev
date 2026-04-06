@@ -1,11 +1,10 @@
 import type {Metadata} from "next";
 import "./globals.css";
 import {Providers} from "@/app/providers";
-import AdminNavBar from "@/components/structures/Header";
 import {Poppins} from 'next/font/google'
 
 export const metadata: Metadata = {
-    title: "redyd.dev",
+    title: "Home",
     description: "Welcome to my personal website - Author: SOEUR Timëo",
 };
 
@@ -21,7 +20,6 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
         <body className="min-h-full flex flex-col">
         <Providers>
             <div className="min-h-screen bg-bg text-text font-sans">
-                <AdminNavBar/>
                 {children}
             </div>
         </Providers>
