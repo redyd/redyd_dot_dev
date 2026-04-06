@@ -3,6 +3,7 @@
 @theme {
     /* Font */
     --font-sans: var(--font-poppins);
+    --font-heading: var(--font-space);
 
     /* Backgrounds */
     --color-bg: #faf9f6;
@@ -57,4 +58,9 @@ body {
     background-color: var(--color-bg);
     color: var(--color-text);
     transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.heading {
+    font-family: var(--font-heading), sans-serif;
+    font-size: 3rem;
 }

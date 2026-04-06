@@ -3,6 +3,7 @@
 import {useTheme} from 'next-themes'
 import {useMounted} from "@/hooks/useMounted";
 import {Moon, Sun} from "lucide-react";
+import IconButton from "@/components/actionnables/IconButton";
 
 export function ThemeToggle() {
     const {resolvedTheme, setTheme} = useTheme()
@@ -13,19 +14,10 @@ export function ThemeToggle() {
     const isDark = resolvedTheme === 'dark';
 
     return (
-        <button
+        <IconButton
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
-            className="
-    w-9 h-9 rounded-lg
-    bg-bg-subtle hover:bg-bg-muted
-    border border-border
-    text-text-muted hover:text-text
-    transition-colors hover:cursor-pointer
-    flex items-center justify-center
-  "
-            aria-label="Toggle theme"
-        >
-            {isDark ? <Sun size={16} /> : <Moon size={16} />}
-        </button>
+            aria_label="Toggle theme"
+            icon={isDark ? <Sun size={16} /> : <Moon size={16} />}
+        />
     )
 }
