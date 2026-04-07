@@ -62,5 +62,10 @@ body {
 
 .heading {
     font-family: var(--font-heading), sans-serif;
-    font-size: 3rem;
+    font-size: 2rem;
+}
+
+.sub-heading {
+    font-family: var(--font-heading), sans-serif;
+    font-size: 1.5rem;
 }
