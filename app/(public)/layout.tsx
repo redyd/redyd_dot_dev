@@ -4,7 +4,7 @@ export default function PublicLayout({children}: Readonly<{ children: React.Reac
     return (
         <div>
             <PublicHeader/>
-            <main className="mx-auto max-w-5xl px-6 py-10 space-y-12">
+            <main className="mx-auto max-w-7xl px-6 py-10 space-y-12">
                 {children}
             </main>
         </div>

@@ -14,7 +14,7 @@ export const skillsData: Promise<Skill[]> = new Promise<Skill[]>((resolve) => {
 
         {label: "Docker", class: "devops", mastery: 3, highlight: true},
         {label: "CI/CD", class: "devops", mastery: 3},
-        {label: "Linux (Ubuntu)", class: "devops", mastery: 3},
+        {label: "Linux (Ubuntu - Fedora)", class: "devops", mastery: 3},
 
         {label: "TypeScript", class: "language", mastery: 4, highlight: true},
         {label: "Python", class: "language", mastery: 2},
