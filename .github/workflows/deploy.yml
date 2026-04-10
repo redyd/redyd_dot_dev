@@ -10,4 +10,6 @@ jobs:
     uses: redyd-git/.github/.github/workflows/deploy.yml@main
     with:
       image_name: redyd_dot_dev
-    secrets: inherit
+    secrets:
+      REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
