@@ -1,3 +1,3 @@
 # Timëo's portfolio
 
-## Just a dum presentation website
+## Just a dum presentation website :)
