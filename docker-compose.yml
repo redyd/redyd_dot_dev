@@ -7,3 +7,9 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=redlab
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
