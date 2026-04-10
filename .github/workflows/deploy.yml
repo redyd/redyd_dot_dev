@@ -10,5 +10,4 @@ jobs:
     uses: redyd-git/.github/.github/workflows/deploy.yml@main
     with:
       image_name: redyd_dot_dev
-      compose_path: /opt/redyd_dot_dev
     secrets: inherit
