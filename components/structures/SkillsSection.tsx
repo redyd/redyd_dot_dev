@@ -1,14 +1,7 @@
 import {Skill} from "@/types/skills.t";
-
-const CLASS_LABELS: Record<string, string> = {
-    backend: "Backend",
-    frontend: "Frontend",
-    mobile: "Mobile",
-    devops: "DevOps",
-    language: "Langages",
-    data: "Data",
-    other: "Autres",
-};
+import {CLASS_LABELS} from "@/data/skills.data";
+import SkillPill from "@/components/cards/SkillPill"
+import Loader from "@/components/utils/Loader";
 
 function groupByClass(skills: Skill[]): Record<string, Skill[]> {
     return skills.reduce((acc, skill) => {
@@ -17,41 +10,16 @@ function groupByClass(skills: Skill[]): Record<string, Skill[]> {
     }, {} as Record<string, Skill[]>);
 }
 
-function MasteryDots({ mastery }: { mastery: number }) {
-    return (
-        <span className="flex gap-[2px] items-center">
-      {Array.from({ length: 5 }, (_, i) => (
-          <span
-              key={i}
-              className={`w-[4px] h-[4px] rounded-full ${
-                  i < mastery ? "opacity-75" : "opacity-20"
-              } bg-current`}
-          />
-      ))}
-    </span>
-    );
-}
+export default function SkillsSection({skills, loading, error}: { skills: Skill[], loading: boolean, error: string | null }) {
+    const grouped = (!loading && skills) ? groupByClass(skills) : {};
 
-function SkillPill({ skill }: { skill: Skill }) {
-    const base =
-        "inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs border transition-colors";
-    const variant = skill.highlight
-        ? "border-[var(--color-accent)] bg-[var(--color-accent-subtle)] text-[var(--color-accent)] font-medium"
-        : "border-[var(--color-border)] bg-[var(--color-bg-subtle)] text-[var(--color-text)]";
+    if (error) {
+        return <p>{error}</p>
+    }
 
     return (
-        <span className={`${base} ${variant}`}>
-      {skill.label}
-            <MasteryDots mastery={skill.mastery} />
-    </span>
-    );
-}
-
-export default function SkillsSection({ skills }: { skills: Skill[] }) {
-    const grouped = groupByClass(skills);
-
-    return (
-        <div className="flex flex-col gap-4">
+        <div className="relative min-h-[120px] flex flex-col gap-4">
+            {loading && <Loader/>}
             {Object.entries(grouped).map(([cls, items]) => (
                 <div key={cls}>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-text-muted)] mb-1">
@@ -59,7 +27,7 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
                     </p>
                     <div className="flex flex-wrap gap-1">
                         {items.map((skill) => (
-                            <SkillPill key={skill.label} skill={skill} />
+                            <SkillPill key={skill.label} skill={skill}/>
                         ))}
                     </div>
                 </div>

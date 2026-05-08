@@ -68,11 +68,6 @@ export default function PublicHeader() {
                 <div className="flex items-center gap-2">
                     <ThemeToggle/>
 
-                    <IconButton
-                        aria_label="Se connecter"
-                        icon={<User size={iconSize}/>}
-                    />
-
                     {/* Burger button */}
                     <button
                         onClick={() => setOpen(!open)}

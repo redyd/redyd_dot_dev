@@ -1,19 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { skillsData } from "@/data/skills.data";
+import {useEffect, useState} from "react";
+import {skillsData} from "@/data/skills.data";
 import Loader from "@/components/utils/Loader";
 import SkillsSection from "@/components/structures/SkillsSection";
-import { Skill } from "@/types/skills.t";
+import {Skill} from "@/types/skills.t";
 
 export default function LandingPage() {
     const [skills, setSkills] = useState<Skill[] | null>(null);
+    const [skillLoading, setSkillLoading] = useState(false);
+    const [skillError, setSkillError] = useState<string | null>(null);
 
     useEffect(() => {
-        skillsData.then(setSkills);
-    }, []);
+        setSkillLoading(true);
 
-    if (!skills) return <Loader />;
+        skillsData
+            .then(setSkills)
+            .then(() => setSkillLoading(false))
+            .catch(() => setSkillError("Chargement impossible"));
+    }, []);
 
     return (
         <div className="px-4 sm:px-8 md:px-16 py-12">
@@ -23,7 +28,7 @@ export default function LandingPage() {
                     Développeur Backend & Fullstack
                 </h1>
                 <p className="text-base md:text-lg text-[var(--color-text-muted)]">
-                    Étudiant développeur spécialisé en Java et C#, avec une approche orientée
+                    Développeur étudiant spécialisé en Java et C#, avec une approche orientée
                     architecture, CI/CD et déploiement Docker.
                 </p>
             </section>
@@ -33,25 +38,25 @@ export default function LandingPage() {
                 {/* Left: Skills */}
                 <div>
                     <h2 className="sub-heading text-2xl font-semibold mb-4">Compétences</h2>
-                    <SkillsSection skills={skills} />
+                    <SkillsSection skills={skills} loading={skillLoading} error={skillError} />
                 </div>
 
                 {/* Middle: Mini Bio */}
                 <div>
-                    <h2 className="sub-heading text-2xl font-semibold mb-4">À propos</h2>
-                    <p className="text-[var(--color-text)] text-sm md:text-base leading-relaxed">
+                    <h2 className="sub-heading text-2xl font-semibold mb-4 text-center">À propos</h2>
+                    <p className="text-[var(--color-text)] text-sm md:text-base leading-relaxed text-center">
                         Étudiant en développement, je me passionne pour la conception de systèmes robustes et scalables.
                         J’aime particulièrement le backend avec Java et C#, l’architecture applicative, et l’intégration
-                        CI/CD. Je travaille également sur des projets mobiles avec React Native et des applications web modernes
+                        CI/CD. Je travaille également sur des projets mobiles avec React Native et des applications web
+                        modernes
                         avec React et Next.js.
                     </p>
                 </div>
 
                 {/* Right: Derniers projets */}
                 <div>
-                    <h2 className="sub-heading text-2xl font-semibold mb-4">Derniers projets</h2>
-                    {/* Placeholder, tu pourras mettre un composant ProjectsSection */}
-                    <ul className="space-y-3 text-sm md:text-base">
+                    <h2 className="sub-heading text-2xl font-semibold mb-4 text-end">Derniers projets</h2>
+                    <ul className="space-y-3 text-sm md:text-base text-end">
                         <li>Projet 1 – Gestion de tâches (React + Node)</li>
                         <li>Projet 2 – App mobile (React Native)</li>
                         <li>Projet 3 – API backend (Spring Boot + Docker)</li>
