@@ -1,68 +1,72 @@
 "use client";
 
-import {useEffect, useState} from "react";
-import {skillsData} from "@/data/skills.data";
-import Loader from "@/components/utils/Loader";
 import SkillsSection from "@/components/structures/SkillsSection";
-import {Skill} from "@/types/skills.t";
+import ProjectsSection from "@/components/structures/ProjectsSection";
+import Image from "next/image";
+import Link from "next/link";
+import {useSkills} from "@/hooks/useSkills";
+import {useLastProjects} from "@/hooks/useLastProjects";
 
 export default function LandingPage() {
-    const [skills, setSkills] = useState<Skill[] | null>(null);
-    const [skillLoading, setSkillLoading] = useState(false);
-    const [skillError, setSkillError] = useState<string | null>(null);
-
-    useEffect(() => {
-        setSkillLoading(true);
-
-        skillsData
-            .then(setSkills)
-            .then(() => setSkillLoading(false))
-            .catch(() => setSkillError("Chargement impossible"));
-    }, []);
+    const {skills, loading: skillLoading, error: skillError} = useSkills();
+    const {projects, loading: projectsLoading, error: projectsError} = useLastProjects(3);
 
     return (
-        <div className="px-4 sm:px-8 md:px-16 py-12">
-            {/* Hero */}
-            <section className="text-center max-w-3xl mx-auto mb-12 space-y-4">
-                <h1 className="heading text-4xl md:text-5xl font-bold">
-                    Développeur Backend & Fullstack
-                </h1>
-                <p className="text-base md:text-lg text-[var(--color-text-muted)]">
-                    Développeur étudiant spécialisé en Java et C#, avec une approche orientée
-                    architecture, CI/CD et déploiement Docker.
-                </p>
-            </section>
+        <div className="px-4 sm:px-8 md:px-16 py-12 space-y-16">
 
-            {/* 3 columns layout */}
-            <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {/* Left: Skills */}
-                <div>
-                    <h2 className="sub-heading text-2xl font-semibold mb-4">Compétences</h2>
-                    <SkillsSection skills={skills} loading={skillLoading} error={skillError} />
+            <section className="flex flex-col items-center text-center max-w-2xl mx-auto gap-6">
+
+                <div
+                    className="w-24 h-24 rounded-full overflow-hidden ring-2 ring-[var(--color-accent)] ring-offset-2 ring-offset-[var(--color-bg)]">
+                    <Image
+                        src="/profile.jpg"
+                        alt="Photo de profil"
+                        width={96}
+                        height={96}
+                        className="object-cover w-full h-full"
+                        priority
+                    />
                 </div>
 
-                {/* Middle: Mini Bio */}
-                <div>
-                    <h2 className="sub-heading text-2xl font-semibold mb-4 text-center">À propos</h2>
-                    <p className="text-[var(--color-text)] text-sm md:text-base leading-relaxed text-center">
-                        Étudiant en développement, je me passionne pour la conception de systèmes robustes et scalables.
-                        J’aime particulièrement le backend avec Java et C#, l’architecture applicative, et l’intégration
-                        CI/CD. Je travaille également sur des projets mobiles avec React Native et des applications web
-                        modernes
-                        avec React et Next.js.
+                <div className="space-y-2">
+                    <p className="text-sm font-medium tracking-widest uppercase text-[var(--color-accent)]">
+                        Recherche un stage
+                    </p>
+                    <h1 className="heading text-4xl md:text-5xl font-bold">
+                        Développeur Backend & Fullstack
+                    </h1>
+                    <p className="text-base md:text-lg text-[var(--color-text-muted)] max-w-xl mx-auto">
+                        Étudiant en développement à HELMo, spécialisé en Java et C#,
+                        avec une approche orientée architecture, CI/CD et déploiement Docker.
                     </p>
                 </div>
 
-                {/* Right: Derniers projets */}
-                <div>
-                    <h2 className="sub-heading text-2xl font-semibold mb-4 text-end">Derniers projets</h2>
-                    <ul className="space-y-3 text-sm md:text-base text-end">
-                        <li>Projet 1 – Gestion de tâches (React + Node)</li>
-                        <li>Projet 2 – App mobile (React Native)</li>
-                        <li>Projet 3 – API backend (Spring Boot + Docker)</li>
-                    </ul>
+                <div className="flex gap-3 flex-wrap justify-center">
+                    <a
+                        href="https://github.com/redyd"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-lg bg-[var(--color-accent)] text-white text-sm font-medium hover:opacity-90 transition-opacity">
+                        GitHub
+                    </a>
+                    <Link
+                        href="/biographie#contact"
+                        className="px-4 py-2 rounded-lg border border-[var(--color-border)] text-sm font-medium hover:bg-[var(--color-bg-subtle)] transition-colors">
+                        Me contacter
+                    </Link>
                 </div>
             </section>
+
+            <section className="max-w-3xl mx-auto w-full">
+                <h2 className="sub-heading text-2xl font-semibold mb-6">Compétences</h2>
+                <SkillsSection skills={skills} loading={skillLoading} error={skillError}/>
+            </section>
+
+            <section className="max-w-3xl mx-auto w-full">
+                <h2 className="sub-heading text-2xl font-semibold mb-6">Derniers projets</h2>
+                <ProjectsSection projects={projects} loading={projectsLoading} error={projectsError}/>
+            </section>
+
         </div>
     );
 }

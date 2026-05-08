@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    environment:
+      - POCKETBASE_URL=http://redyd_pocketbase:8090
     networks:
       - proxy
 
