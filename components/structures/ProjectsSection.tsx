@@ -3,6 +3,7 @@ import {Project} from "@/types/projects.t";
 import {CardVariant} from "@/types/variants.t";
 import ProjectCard from "@/components/cards/ProjectCard";
 import Loader from "@/components/utils/Loader";
+import ErrorText from "@/components/texts/ErrorText";
 
 type Props = {
     projects: Project[] | null;
@@ -17,7 +18,7 @@ const GRID_CLASSES: Record<CardVariant, string> = {
 };
 
 export default function ProjectsSection({projects, loading, error, variant = "grid"}: Props) {
-    if (error) return <p className="text-sm text-[var(--color-text-muted)] italic">{error}</p>;
+    if (error) return <ErrorText content={error}/>;
 
     return (
         <div className="relative min-h-[200px]">
