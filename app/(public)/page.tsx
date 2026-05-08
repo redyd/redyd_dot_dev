@@ -50,7 +50,7 @@ export default function LandingPage() {
                         GitHub
                     </a>
                     <Link
-                        href="/biographie#contact"
+                        href="/biographie"
                         className="px-4 py-2 rounded-lg border border-[var(--color-border)] text-sm font-medium hover:bg-[var(--color-bg-subtle)] transition-colors">
                         Me contacter
                     </Link>
