@@ -6,10 +6,20 @@ export const ProjectsServices = {
 
     async getLast(pb: Pocketbase, count: number): Promise<Project[]> {
         const resultList = await pb.collection('projects').getList(1, count, {
-            expand: "stacks"
+            expand: "stacks",
+            sort: "-date"
         });
 
         return resultList.items.map(project => this.mapProject(pb, project));
+    },
+
+    async getAll(pb: Pocketbase): Promise<Project[]> {
+        const resultList = await pb.collection('projects').getFullList( {
+            expand: "stacks",
+            sort: "-date"
+        });
+
+        return resultList.map(project => this.mapProject(pb, project));
     },
 
     mapProject(pb: Pocketbase, project: RecordModel): Project {

@@ -9,7 +9,7 @@ import {useLastProjects} from "@/hooks/useLastProjects";
 
 export default function LandingPage() {
     const {skills, loading: skillLoading, error: skillError} = useSkills();
-    const {projects, loading: projectsLoading, error: projectsError} = useLastProjects(3);
+    const {projects, loading: projectsLoading, error: projectsError} = useLastProjects(2);
 
     return (
         <div className="px-4 sm:px-8 md:px-16 py-12 space-y-16">
@@ -64,7 +64,7 @@ export default function LandingPage() {
 
             <section className="max-w-3xl mx-auto w-full">
                 <h2 className="sub-heading text-2xl font-semibold mb-6">Derniers projets</h2>
-                <ProjectsSection projects={projects} loading={projectsLoading} error={projectsError}/>
+                <ProjectsSection projects={projects} loading={projectsLoading} error={projectsError} variant={"grid"}/>
             </section>
 
         </div>
