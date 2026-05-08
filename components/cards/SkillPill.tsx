@@ -1,4 +1,5 @@
 import InlineDots from "@/components/utils/InlineDots";
+import {Skill} from "@/types/skills.t";
 
 export default function SkillPill({skill}: { skill: Skill }) {
     const base = "inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs border transition-colors group relative cursor-default";

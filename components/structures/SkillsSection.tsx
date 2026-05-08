@@ -36,7 +36,7 @@ export default function SkillsSection({skills, loading, error}: Props) {
                 {orderedEntries.map(([cls, items]) => (
                     <div key={cls}>
                         <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-text-muted)] mb-2">
-                            {orderedClass[cls] ?? cls}
+                            {cls}
                         </p>
                         <div className="flex flex-wrap gap-1.5">
                             {items.map((skill) => (

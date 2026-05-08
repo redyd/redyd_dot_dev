@@ -1,6 +1,6 @@
 import {Skill} from "@/types/skills.t";
 import {Project} from "@/types/projects.t";
-import Pocketbase from "pocketbase";
+import Pocketbase, {RecordModel} from "pocketbase";
 
 export const ProjectsServices = {
 
