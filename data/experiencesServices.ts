@@ -17,7 +17,7 @@ export const ExperiencesServices = {
             company: exp.company,
             description: exp.description,
             begin: new Date(exp.begin),
-            end: exp.end ? new Date(exp.end) : null,
+            end: exp.end ? new Date(exp.end) : undefined,
             type: exp.type
         }
     }

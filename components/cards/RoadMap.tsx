@@ -3,7 +3,7 @@ import ErrorText from "@/components/texts/ErrorText";
 import Loading from "@/components/utils/Loader";
 
 type Props = {
-    events: Event[];
+    events: Event[] | null;
     error: string | null;
     loading: boolean;
     type: EventType;
