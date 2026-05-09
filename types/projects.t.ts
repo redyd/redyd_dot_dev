@@ -6,7 +6,7 @@ export type Project = {
     description: string;
     images: string[];
     stacks: Skill[];
-    repository: string;
+    repository?: string | null;
     demo?: string | null;
     date: Date;
 }

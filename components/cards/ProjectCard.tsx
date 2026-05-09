@@ -61,7 +61,7 @@ export default function ProjectCard({project, variant = "grid"}: Props) {
                         ))}
                     </div>
                     <div className="flex gap-3 text-sm pt-1" onClick={(e) => e.stopPropagation()}>
-                        <ExternalButton href={project.repository} label="Git"/>
+                        {project.repository && <ExternalButton href={project.repository} label="Git"/>}
                         {project.demo && <ExternalButton href={project.demo} label="Demo"/>}
                     </div>
                 </div>

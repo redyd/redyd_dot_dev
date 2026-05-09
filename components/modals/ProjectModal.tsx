@@ -1,7 +1,7 @@
 "use client";
-import { useEffect } from "react";
-import { Project } from "@/types/projects.t";
-import { Skill } from "@/types/skills.t";
+import {useEffect} from "react";
+import {Project} from "@/types/projects.t";
+import {Skill} from "@/types/skills.t";
 import ImageCarrousel from "@/components/cards/ImageCarrousel";
 import ExternalButton from "@/components/actionnables/ExternalButton";
 
@@ -10,17 +10,21 @@ type Props = {
     onClose: () => void;
 };
 
-export default function ProjectModal({ project, onClose }: Props) {
+export default function ProjectModal({project, onClose}: Props) {
 
     useEffect(() => {
-        const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+        const handler = (e: KeyboardEvent) => {
+            if (e.key === "Escape") onClose();
+        };
         document.addEventListener("keydown", handler);
         return () => document.removeEventListener("keydown", handler);
     }, [onClose]);
 
     useEffect(() => {
         document.body.style.overflow = "hidden";
-        return () => { document.body.style.overflow = ""; };
+        return () => {
+            document.body.style.overflow = "";
+        };
     }, []);
 
     return (
@@ -29,7 +33,7 @@ export default function ProjectModal({ project, onClose }: Props) {
             onClick={onClose}>
             <div
                 className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)] flex flex-col"
-                style={{ boxShadow: "var(--shadow-md)" }}
+                style={{boxShadow: "var(--shadow-md)"}}
                 onClick={(e) => e.stopPropagation()}>
 
                 <button
@@ -42,7 +46,7 @@ export default function ProjectModal({ project, onClose }: Props) {
 
                 {project.images.length > 0 && (
                     <div className="h-64 md:h-80 flex-shrink-0">
-                        <ImageCarrousel name={project.name} images={project.images} className="h-64 md:h-80" />
+                        <ImageCarrousel name={project.name} images={project.images} className="h-64 md:h-80"/>
                     </div>
                 )}
 
@@ -79,10 +83,8 @@ export default function ProjectModal({ project, onClose }: Props) {
                     </div>
 
                     <div className="flex gap-3 pt-1">
-                        <ExternalButton href={project.repository} label="GitHub" />
-                        {project.demo && (
-                            <ExternalButton href={project.demo} label="Démo" />
-                        )}
+                        {project.repository && <ExternalButton href={project.repository} label="GitHub"/>}
+                        {project.demo && <ExternalButton href={project.demo} label="Démo"/>}
                     </div>
                 </div>
             </div>
