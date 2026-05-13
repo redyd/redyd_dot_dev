@@ -29,7 +29,7 @@ export default function BioPage() {
                     <p className="text-base md:text-lg text-[var(--color-text-muted)] max-w-xl mx-auto">
                         Je suis un développeur fullstack en formation à l'HELMo, spécialisé dans le backend et le
                         déploiement.
-                        Engagé dans le parcours SALTO, j'ai aquiéri de l'expérience sur des projets réels pour des
+                        Engagé dans le parcours SALTO, j'ai acquis de l'expérience sur des projets réels pour des
                         clients.
                         J'apprends rapidement, m'adapte facilement et aime les projets aux solutions complexes et
                         originales.
