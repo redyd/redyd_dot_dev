@@ -44,7 +44,7 @@ export default function LandingPage() {
             const verify = await fetch(`/api/hidden/token?token=${token}`);
             const {valid} = await verify.json();
 
-            if (valid) router.push("/hidden");
+            if (valid) router.push("/hidden/timini-gimini");
             else router.replace("/");
         }
     };

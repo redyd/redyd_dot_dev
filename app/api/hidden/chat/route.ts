@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {sendMessageToGemini} from "@/lib/gemini";
-import {GeminiMessage} from "@/types/chat";
+import {GeminiMessage} from "@/types/chat.t";
 
 export async function POST(req: NextRequest) {
     const body = await req.json();

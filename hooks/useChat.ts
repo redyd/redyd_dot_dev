@@ -1,7 +1,7 @@
 "use client";
 
 import {useCallback, useEffect, useState} from "react";
-import {ChatMessage, GeminiMessage} from "@/types/chat";
+import {ChatMessage, GeminiMessage} from "@/types/chat.t";
 
 const STORAGE_KEY = "redyd_chat_history";
 

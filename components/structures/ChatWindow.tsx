@@ -1,7 +1,7 @@
 "use client";
 
 import {useEffect, useRef} from "react";
-import {ChatMessage} from "@/types/chat";
+import {ChatMessage} from "@/types/chat.t";
 import {TypingIndicator} from "@/components/utils/TypingIndicator";
 
 interface ChatWindowProps {

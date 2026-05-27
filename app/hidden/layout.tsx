@@ -8,9 +8,9 @@ import AiLineIcon from '@iconify-react/mingcute/ai-line';
 
 const iconSize = 16;
 const navbarItems: NavBarItem[] = [
-    {name: "Home", href: "/hidden", icon: <BookLock size={iconSize}/>},
-    {name: "Timini Gimini", href: "/hidden/timini-gimini", icon: <AiLineIcon height={iconSize}/>},
-    {name: "Singeur", href: "/hidden/bot-singeur", icon: <Bot size={iconSize}/>}
+   {name: "Home", href: "/hidden", icon: <BookLock size={iconSize}/>},
+    {name: "Timini Gimini", href: "/hidden/timini-gimini", icon: <AiLineIcon width={String(iconSize)} height={String(iconSize)} />},
+    // {name: "Singeur", href: "/hidden/bot-singeur", icon: <Bot size={iconSize}/>}
 ];
 
 export default function HiddenLayout({children}: Readonly<{ children: React.ReactNode }>) {
