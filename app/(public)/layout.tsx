@@ -11,9 +11,9 @@ const navbarItems: NavBarItem[] = [
 
 export default function PublicLayout({children}: Readonly<{ children: React.ReactNode }>) {
     return (
-        <div>
+        <div className="min-h-full flex flex-col">
             <Header navbarItems={navbarItems}/>
-            <main className="mx-auto max-w-7xl px-6 py-10 space-y-12">
+            <main className="mx-auto max-w-7xl px-6 py-10 space-y-12 w-full">
                 {children}
             </main>
         </div>

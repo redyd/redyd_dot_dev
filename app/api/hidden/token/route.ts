@@ -11,19 +11,19 @@ export async function POST() {
 }
 
 export async function GET(req: Request) {
-    const { searchParams } = new URL(req.url);
+    const {searchParams} = new URL(req.url);
     const token = searchParams.get("token");
-    if (!token) return NextResponse.json({ valid: false }, { status: 400 });
+    if (!token) return NextResponse.json({valid: false}, {status: 400});
 
     const expiry = tokens.get(token);
     if (!expiry || Date.now() > expiry) {
         tokens.delete(token);
-        return NextResponse.json({ valid: false }, { status: 401 });
+        return NextResponse.json({valid: false}, {status: 401});
     }
 
     tokens.delete(token);
 
-    const response = NextResponse.json({ valid: true });
+    const response = NextResponse.json({valid: true});
     response.cookies.set("hidden_session", "1", {
         httpOnly: true,
         sameSite: "strict",

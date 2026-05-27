@@ -15,7 +15,7 @@ const navbarItems: NavBarItem[] = [
 
 export default function HiddenLayout({children}: Readonly<{ children: React.ReactNode }>) {
     return (
-        <div>
+        <div className="h-full flex flex-col overflow-hidden">
             <Header
                 navbarItems={navbarItems}
                 leading={
@@ -28,7 +28,7 @@ export default function HiddenLayout({children}: Readonly<{ children: React.Reac
                     </Link>
                 }
             />
-            <main className="mx-auto max-w-7xl px-6 py-10 space-y-12">
+            <main className="flex-1 overflow-hidden">
                 {children}
             </main>
         </div>
