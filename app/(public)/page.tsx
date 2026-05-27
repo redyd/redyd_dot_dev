@@ -1,5 +1,7 @@
 "use client";
 
+import {useEffect, useRef, useState} from "react";
+import {useRouter} from "next/navigation";
 import SkillsSection from "@/components/structures/SkillsSection";
 import ProjectsSection from "@/components/structures/ProjectsSection";
 import Image from "next/image";
@@ -7,9 +9,49 @@ import Link from "next/link";
 import {useSkills} from "@/hooks/useSkills";
 import {useLastProjects} from "@/hooks/useLastProjects";
 
+const MAX_CLICKS = 10;
+const SCALE_START = 5;
+const DECAY_INTERVAL_MS = 500;
+const DECAY_DELAY_MS = 800;
+
 export default function LandingPage() {
     const {skills, loading: skillLoading, error: skillError} = useSkills();
     const {projects, loading: projectsLoading, error: projectsError} = useLastProjects(2);
+    const [clicks, setClicks] = useState(0);
+    const lastClickRef = useRef<number>(Date.now());
+    const router = useRouter();
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const elapsed = Date.now() - lastClickRef.current;
+            if (elapsed >= DECAY_DELAY_MS) {
+                setClicks(c => Math.max(0, c - 1));
+            }
+        }, DECAY_INTERVAL_MS);
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleClick = async () => {
+        lastClickRef.current = Date.now();
+        const next = clicks + 1;
+        setClicks(next);
+
+        if (next >= MAX_CLICKS) {
+            setClicks(0);
+            const res = await fetch("/api/hidden/token", {method: "POST"});
+            const {token} = await res.json();
+
+            const verify = await fetch(`/api/hidden/token?token=${token}`);
+            const {valid} = await verify.json();
+
+            if (valid) router.push("/hidden/timini-gimini");
+            else router.replace("/");
+        }
+    };
+
+    const scale = clicks >= SCALE_START
+        ? 1 + (clicks - SCALE_START) * 0.06
+        : 1;
 
     return (
         <div className="px-4 sm:px-8 md:px-16 py-12 space-y-16">
@@ -17,7 +59,10 @@ export default function LandingPage() {
             <section className="flex flex-col items-center text-center max-w-2xl mx-auto gap-6">
 
                 <div
-                    className="w-24 h-24 rounded-full overflow-hidden ring-2 ring-[var(--color-accent)] ring-offset-2 ring-offset-[var(--color-bg)]">
+                    onClick={handleClick}
+                    style={{transform: `scale(${scale})`, transition: "transform 0.2s ease"}}
+                    className="w-24 h-24 rounded-full overflow-hidden ring-2 ring-[var(--color-accent)] ring-offset-2 ring-offset-[var(--color-bg)] cursor-pointer select-none"
+                >
                     <Image
                         src="/profile.jpg"
                         alt="Photo de profil"

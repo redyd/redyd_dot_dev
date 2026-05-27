@@ -3,31 +3,31 @@
 import {useLayoutEffect, useRef, useState} from "react";
 import {ThemeToggle} from "@/components/actionnables/ThemeToggle";
 import {NavBarItem} from "@/types/navigation.t";
-import {BookOpen, House, Menu, PanelsTopLeft, X} from "lucide-react";
 import Link from "next/link";
 import {usePathname} from 'next/navigation';
 import {AnimatePresence, motion} from "framer-motion";
+import {Menu, X} from "lucide-react";
 
-const iconSize = 16;
+type Props = {
+    navbarItems: NavBarItem[];
+    leading?: React.ReactNode;
+};
 
-const navbarItems: NavBarItem[] = [
-    {name: "Home", href: "/", icon: <House size={iconSize}/>},
-    {name: "Projets", href: "/projects", icon: <PanelsTopLeft size={iconSize}/>},
-    {name: "Biographie", href: "/biographie", icon: <BookOpen size={iconSize}/>}
-];
-
-export default function PublicHeader() {
+export default function Header({navbarItems, leading}: Props) {
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
     const navRef = useRef<HTMLDivElement>(null);
     const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
     const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number } | null>(null);
 
-    const activeIndex = navbarItems.findIndex((item) =>
-        item.href === "/"
-            ? pathname === "/"
-            : pathname === item.href || pathname.startsWith(item.href + "/")
-    );
+    const activeIndex = navbarItems.findIndex((item, _, arr) => {
+        const isRootLike = arr.some(
+            (other) => other.href !== item.href && other.href.startsWith(item.href + "/")
+        );
+        return isRootLike
+            ? pathname === item.href
+            : pathname === item.href || pathname.startsWith(item.href + "/");
+    });
 
     useLayoutEffect(() => {
         const activeEl = itemRefs.current[activeIndex];
@@ -48,7 +48,8 @@ export default function PublicHeader() {
         <nav className="sticky top-0 z-10 border-b border-border bg-bg/80 backdrop-blur-sm">
             <div className="mx-auto max-w-5xl flex items-center justify-between px-6 h-14">
 
-                <span className="text-sm font-medium tracking-tight text-text">
+                <span className="text-sm font-medium tracking-tight text-text flex items-center gap-3">
+                    {leading}
                     redyd.dev
                 </span>
 
