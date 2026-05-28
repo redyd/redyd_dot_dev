@@ -1,48 +1,79 @@
-"use client";
-import {useMemo, useState} from "react";
-import Fuse from "fuse.js";
-import ProjectsSection from "@/components/structures/ProjectsSection";
-import {useAllProjects} from "@/hooks/useAllProjects";
-import SearchBar from "@/components/utils/SearchBar";
+import type {Metadata} from "next";
+import ProjectsClient from "./ProjectsClient";
+import {JsonLd} from "@/lib/json-ld";
+import {absoluteUrl, siteConfig} from "@/lib/site";
+
+export const metadata: Metadata = {
+    title: "Projets",
+    description:
+        "Sélection de projets personnels et scolaires de Timëo Soeur, avec recherche par titre, description et stack technique.",
+    alternates: {
+        canonical: "/projects",
+    },
+    openGraph: {
+        type: "website",
+        url: absoluteUrl("/projects"),
+        title: "Projets | Timëo Soeur",
+        description:
+            "Sélection de projets personnels et scolaires de Timëo Soeur, avec recherche par titre, description et stack technique.",
+        images: [
+            {
+                url: siteConfig.profileImage,
+                width: 1200,
+                height: 630,
+                alt: `Photo de ${siteConfig.name}`,
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Projets | Timëo Soeur",
+        description:
+            "Sélection de projets personnels et scolaires de Timëo Soeur, avec recherche par titre, description et stack technique.",
+        images: [siteConfig.profileImage],
+    },
+};
 
 export default function ProjectsPage() {
-    const {projects, loading, error} = useAllProjects();
-    const [query, setQuery] = useState("");
-
-    const fuse = useMemo(() => new Fuse(projects ?? [], {
-        keys: [
-            "name",
-            "description",
-            "stacks.label",
-        ],
-        threshold: 0.35,
-        minMatchCharLength: 2,
-        ignoreLocation: true,
-    }), [projects]);
-
-    const filtered = useMemo(() => {
-        if (!query.trim()) return projects ?? [];
-        return fuse.search(query).map((r) => r.item);
-    }, [query, fuse, projects]);
-
     return (
-        <div className="flex flex-col gap-8">
-            <div className="space-y-2">
-                <p className="text-sm font-medium tracking-widest uppercase text-[var(--color-accent)]">
-                    Parcourir
-                </p>
-                <h1 className="heading text-4xl md:text-5xl font-bold">
-                    Mes projets personnels et scolaire
-                </h1>
-            </div>
-
-            <SearchBar
-                className="w-full max-w-none"
-                onSearch={setQuery}
-                placeholder="Rechercher par titre, description, stack technique..."
+        <>
+            <ProjectsClient/>
+            <JsonLd
+                data={[
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "CollectionPage",
+                        name: "Projets | Timëo Soeur",
+                        url: absoluteUrl("/projects"),
+                        description:
+                            "Sélection de projets personnels et scolaires de Timëo Soeur, avec recherche par titre, description et stack technique.",
+                        about: {
+                            "@type": "Person",
+                            name: siteConfig.author,
+                            jobTitle: siteConfig.role,
+                            url: absoluteUrl("/"),
+                        },
+                    },
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        itemListElement: [
+                            {
+                                "@type": "ListItem",
+                                position: 1,
+                                name: "Accueil",
+                                item: absoluteUrl("/"),
+                            },
+                            {
+                                "@type": "ListItem",
+                                position: 2,
+                                name: "Projets",
+                                item: absoluteUrl("/projects"),
+                            },
+                        ],
+                    },
+                ]}
             />
-
-            <ProjectsSection projects={filtered} loading={loading} error={error} variant="list"/>
-        </div>
+        </>
     );
 }
