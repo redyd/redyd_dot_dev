@@ -1,7 +1,7 @@
 import {GeminiMessage} from "@/types/chat.t";
 
 const GEMINI_API_URL =
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent";
+    "https://generativelanguage.googleapis.com/v1beta/models/:AI_MODEL::generateContent";
 
 const SYSTEM_PROMPT = `Tu es TIMINI GIMINI. Tu réponds toujours en français.
 
