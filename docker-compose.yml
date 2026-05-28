@@ -9,6 +9,7 @@ services:
       - POCKETBASE_URL=http://redyd_pocketbase:8090
       - GEMINI_API_KEY=${GEMINI_API_KEY}
       - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+      - GEMINI_AI_MODEL=${GEMINI_AI_MODEL}
     networks:
       - proxy
 

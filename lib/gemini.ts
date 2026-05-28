@@ -1,7 +1,7 @@
 import {GeminiMessage} from "@/types/chat.t";
 
 const GEMINI_API_URL =
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent";
+    "https://generativelanguage.googleapis.com/v1beta/models/:AI_MODEL::generateContent";
 
 const SYSTEM_PROMPT = `Tu es TIMINI GIMINI. Tu réponds toujours en français.
 
@@ -13,8 +13,9 @@ Réponds de façon concise. Tu n'es pas là pour disserter.`;
 export async function sendMessageToGemini(history: GeminiMessage[]): Promise<string> {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) throw new Error("GEMINI_API_KEY is not set");
+    const model = process.env.GEMINI_AI_MODEL ?? throw new Error("Model is not set");
 
-    const res = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
+    const res = await fetch(`${GEMINI_API_URL.replace(":AI_MODEL:", model)}?key=${apiKey}`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
